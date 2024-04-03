@@ -5,6 +5,9 @@ import NewComponent from './components/NewComponent';
 import Button from './components/Button';
 import Component from './components/Component';
 import { Currency } from './components/Currency';
+import FullInput from './components/FullInput';
+import Input from './components/Input';
+import Button1 from './components/Button1';
 
 function App_1() {
 
@@ -67,7 +70,7 @@ export type MoneyType = {
 }
 export type FilterType = 'all' | 'Dollars' | 'RUBLS';
 
-function App() {
+function App_3() {
   let [money, setMoney] = useState([
     { banknots: 'Dollars', value: 100, number: ' a1234567890' },
     { banknots: 'Dollars', value: 50, number: ' z1234567890' },
@@ -99,6 +102,45 @@ function App() {
   return (
     <div>
       <Component  currentMoney={currentMoney} onClickFilterHandler={onClickFilterHandler}/>
+    </div>
+  )
+}
+
+
+export type MessageType = {
+  message: string
+}
+function App() {
+  const [message, setMessage] = useState([
+    {message: 'message1'},
+    {message: 'message2'},
+    {message: 'message3'},
+  ])
+
+  let [title, setTitle] = useState('')
+  // console.log(title)
+
+  const addMessage = (title: string) => {
+    // console.log(title)
+    let newMessage = {message: title}
+    setMessage([newMessage, ...message])
+  }
+
+  const callBackButtonHandler = () => {
+    addMessage(title)
+    setTitle('')
+  }
+
+  return (
+    <div>
+      <FullInput addMessage={addMessage}/>
+      <Input setTitle={setTitle} title={title}/>
+      <Button1 name='add' callBack={callBackButtonHandler}/>
+      {message.map((m, index)=>{
+        return (
+          <div key={index}>{m.message}</div>
+        )
+      })}
     </div>
   )
 }
